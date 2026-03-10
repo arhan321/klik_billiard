@@ -16,6 +16,7 @@ class QuickBookingView extends StatelessWidget {
       ),
       child: Text(
         text,
+        textAlign: TextAlign.center,
         style: const TextStyle(color: AppColors.white, fontSize: 12),
       ),
     );
@@ -27,19 +28,26 @@ class QuickBookingView extends StatelessWidget {
     final times = ['13:00', '15:00', '16:00', '17:00'];
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [AppColors.primaryDark, AppColors.primary],
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [AppColors.primaryDark, AppColors.primary],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight:
+                    MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).padding.top -
+                    40,
               ),
-              borderRadius: BorderRadius.circular(26),
-            ),
-            child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -47,6 +55,7 @@ class QuickBookingView extends StatelessWidget {
                     onPressed: () => Navigator.pop(context),
                     icon: const Icon(Icons.arrow_back, color: Colors.white),
                   ),
+                  const SizedBox(height: 4),
                   const Text(
                     'Booking Cepat !',
                     style: TextStyle(
@@ -55,10 +64,10 @@ class QuickBookingView extends StatelessWidget {
                       color: AppColors.white,
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 18),
                   const Text(
                     'Pilih Tanggal / Hari :',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: AppColors.white, fontSize: 16),
                   ),
                   const SizedBox(height: 10),
                   SingleChildScrollView(
@@ -72,10 +81,10 @@ class QuickBookingView extends StatelessWidget {
                       }),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 20),
                   const Text(
                     'Mulai Main :',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: AppColors.white, fontSize: 16),
                   ),
                   const SizedBox(height: 10),
                   Wrap(
@@ -85,23 +94,24 @@ class QuickBookingView extends StatelessWidget {
                       return chip(times[index], selected: index == 1);
                     }),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 20),
                   const Text(
-                    'Informasi : Meja otomatis di pilih oleh sistem terbaik',
-                    style: TextStyle(color: AppColors.lightText),
+                    'Informasi : Meja otomatis dipilih oleh sistem terbaik',
+                    style: TextStyle(color: AppColors.lightText, fontSize: 15),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 14),
                   Container(
-                    height: 130,
+                    width: double.infinity,
+                    height: 160,
                     decoration: BoxDecoration(
                       color: Colors.white12,
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(18),
                     ),
                     child: const Center(
                       child: Icon(Icons.image, color: Colors.white54, size: 44),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 28),
                   CustomButton(
                     text: 'Selanjutnya',
                     onPressed: () {

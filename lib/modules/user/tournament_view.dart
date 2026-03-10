@@ -5,100 +5,113 @@ import '../../data/dummy_data.dart';
 class TournamentView extends StatelessWidget {
   const TournamentView({super.key});
 
+  Widget tournamentCard({
+    required String title,
+    required String date,
+    required String prize,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white12,
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 160,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white10,
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.image_outlined,
+                color: Colors.white54,
+                size: 42,
+              ),
+            ),
+          ),
+          const SizedBox(height: 14),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.white,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Jadwal : $date',
+            style: const TextStyle(color: AppColors.lightText, fontSize: 15),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'Prize Pool : $prize',
+            style: const TextStyle(color: AppColors.lightText, fontSize: 15),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [AppColors.primaryDark, AppColors.primary],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [AppColors.primaryDark, AppColors.primary],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight:
+                    MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).padding.top -
+                    40,
               ),
-              borderRadius: BorderRadius.circular(26),
-            ),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    ),
-                    const SizedBox(width: 6),
-                    const Text(
-                      'Tournament',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.white,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(Icons.arrow_back, color: Colors.white),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: DummyData.tournaments.length,
-                    itemBuilder: (context, index) {
-                      final item = DummyData.tournaments[index];
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 14),
-                        padding: const EdgeInsets.all(14),
-                        decoration: BoxDecoration(
-                          color: Colors.white12,
-                          borderRadius: BorderRadius.circular(18),
+                      const SizedBox(width: 4),
+                      const Text(
+                        'Tournament',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.white,
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 150,
-                              decoration: BoxDecoration(
-                                color: Colors.white10,
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                              child: const Center(
-                                child: Icon(
-                                  Icons.image,
-                                  color: Colors.white54,
-                                  size: 40,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 12),
-                            Text(
-                              item.title,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.white,
-                              ),
-                            ),
-                            Text(
-                              'Jadwal : ${item.date}',
-                              style: const TextStyle(
-                                color: AppColors.lightText,
-                              ),
-                            ),
-                            Text(
-                              'Prize Pool : ${item.prize}',
-                              style: const TextStyle(
-                                color: AppColors.lightText,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                  const SizedBox(height: 20),
+                  ...DummyData.tournaments.map(
+                    (item) => tournamentCard(
+                      title: item.title,
+                      date: item.date,
+                      prize: item.prize,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

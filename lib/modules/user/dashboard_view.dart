@@ -78,6 +78,89 @@ class DashboardView extends StatelessWidget {
     );
   }
 
+  Widget newsCard({
+    required String title,
+    required String subtitle,
+    required String buttonText,
+    VoidCallback? onTap,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 14),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white12,
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Stack(
+        children: [
+          Container(
+            height: 130,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              gradient: const LinearGradient(
+                colors: [AppColors.cardDark, AppColors.secondary],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: const Center(
+              child: Icon(Icons.image, color: Colors.white38, size: 42),
+            ),
+          ),
+          Positioned(
+            left: 14,
+            right: 110,
+            bottom: 16,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: AppColors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: AppColors.lightText,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            right: 14,
+            bottom: 16,
+            child: SizedBox(
+              height: 36,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.white,
+                  foregroundColor: AppColors.primary,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                ),
+                onPressed: onTap ?? () {},
+                child: Text(buttonText),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,7 +210,7 @@ class DashboardView extends StatelessWidget {
                     ),
                     menuItem(
                       context,
-                      icon: Icons.flash_on,
+                      icon: Icons.confirmation_num_outlined,
                       label: 'Voucher',
                       onTap: () {
                         Navigator.pushNamed(context, AppRoutes.voucher);
@@ -162,6 +245,7 @@ class DashboardView extends StatelessWidget {
                     fontSize: 18,
                   ),
                 ),
+
                 const SizedBox(height: 14),
 
                 SizedBox(
@@ -232,6 +316,64 @@ class DashboardView extends StatelessWidget {
                     ],
                   ),
                 ),
+
+                const SizedBox(height: 24),
+
+                const Text(
+                  'Berita / Event :',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.white,
+                    fontSize: 18,
+                  ),
+                ),
+
+                const SizedBox(height: 14),
+
+                Container(
+                  width: double.infinity,
+                  height: 340,
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white10,
+                    borderRadius: BorderRadius.circular(18),
+                    border: Border.all(color: Colors.white12),
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        newsCard(
+                          title: 'INFORMASI MEJA BOOKING',
+                          subtitle:
+                              'Cek informasi meja yang tersedia dan terbooking',
+                          buttonText: 'Cek Detail',
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRoutes.booking);
+                          },
+                        ),
+                        newsCard(
+                          title: 'TIBA-TIBA FUNGAME',
+                          subtitle: 'Tournament seru mingguan untuk member',
+                          buttonText: 'Lihat',
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRoutes.tournament);
+                          },
+                        ),
+                        newsCard(
+                          title: 'VOUCHER DISKON JANUARI',
+                          subtitle:
+                              'Gunakan voucher untuk potongan harga booking',
+                          buttonText: 'Pakai',
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRoutes.voucher);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 24),
               ],
             ),
           ),

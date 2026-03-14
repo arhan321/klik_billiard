@@ -75,6 +75,8 @@ class _BookingViewState extends State<BookingView> {
   ];
 
   bool get isTwoHoursPackage => selectedPackageIndex == 1;
+  bool get isRegularPackage => selectedPackageIndex == 0;
+  bool get showQuickBookingButton => isRegularPackage;
 
   String get selectedStartTime => times[selectedTimeIndex];
 
@@ -549,7 +551,8 @@ class _BookingViewState extends State<BookingView> {
                                         ),
                                       ),
                                     ),
-                                    smallTopButton(context),
+                                    if (showQuickBookingButton)
+                                      smallTopButton(context),
                                   ],
                                 ),
                                 const SizedBox(height: 22),

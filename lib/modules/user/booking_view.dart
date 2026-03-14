@@ -245,8 +245,8 @@ class _BookingViewState extends State<BookingView> {
     return GestureDetector(
       onTap: available ? onTap : null,
       child: Container(
-        width: 88,
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
         decoration: BoxDecoration(
           color: selected
               ? AppColors.secondary.withOpacity(0.85)
@@ -266,22 +266,27 @@ class _BookingViewState extends State<BookingView> {
               : null,
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.table_restaurant, color: Colors.white, size: 24),
-            const SizedBox(height: 8),
+            const Icon(Icons.table_restaurant, color: Colors.white, size: 22),
+            const SizedBox(height: 6),
             Text(
               title,
               textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 3),
             Text(
               status,
               textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(color: AppColors.lightText, fontSize: 10),
             ),
           ],
@@ -402,8 +407,15 @@ class _BookingViewState extends State<BookingView> {
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.05),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(18),
           border: Border.all(color: Colors.white12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.10),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -412,15 +424,22 @@ class _BookingViewState extends State<BookingView> {
               title,
               style: const TextStyle(
                 color: AppColors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
               ),
             ),
             const SizedBox(height: 12),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: List.generate(tables.length, (index) {
+            GridView.builder(
+              itemCount: tables.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                childAspectRatio: 0.72,
+              ),
+              itemBuilder: (context, index) {
                 final table = tables[index];
                 final globalIndex = startIndex + index;
                 return tableCard(
@@ -436,7 +455,7 @@ class _BookingViewState extends State<BookingView> {
                     });
                   },
                 );
-              }),
+              },
             ),
           ],
         ),
@@ -466,11 +485,9 @@ class _BookingViewState extends State<BookingView> {
               ),
             ),
           ),
-
           Positioned.fill(
             child: Container(color: AppColors.primaryDark.withOpacity(0.74)),
           ),
-
           SafeArea(
             child: Column(
               children: [
@@ -480,7 +497,6 @@ class _BookingViewState extends State<BookingView> {
                     child: Column(
                       children: [
                         const SizedBox(height: 8),
-
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Align(
@@ -495,9 +511,7 @@ class _BookingViewState extends State<BookingView> {
                             ),
                           ),
                         ),
-
                         const SizedBox(height: 110),
-
                         Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
@@ -539,7 +553,6 @@ class _BookingViewState extends State<BookingView> {
                                   ],
                                 ),
                                 const SizedBox(height: 22),
-
                                 Row(
                                   children: [
                                     const Expanded(
@@ -555,7 +568,6 @@ class _BookingViewState extends State<BookingView> {
                                   ],
                                 ),
                                 const SizedBox(height: 12),
-
                                 SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
@@ -582,7 +594,6 @@ class _BookingViewState extends State<BookingView> {
                                   ),
                                 ),
                                 const SizedBox(height: 10),
-
                                 Row(
                                   children: [
                                     statusLegend(
@@ -596,7 +607,6 @@ class _BookingViewState extends State<BookingView> {
                                     ),
                                   ],
                                 ),
-
                                 const SizedBox(height: 24),
                                 const Text(
                                   'Pilih Paket Main :',
@@ -606,7 +616,6 @@ class _BookingViewState extends State<BookingView> {
                                   ),
                                 ),
                                 const SizedBox(height: 12),
-
                                 Wrap(
                                   spacing: 10,
                                   runSpacing: 10,
@@ -630,7 +639,6 @@ class _BookingViewState extends State<BookingView> {
                                     );
                                   }),
                                 ),
-
                                 const SizedBox(height: 24),
                                 const Text(
                                   'Mulai Main :',
@@ -640,7 +648,6 @@ class _BookingViewState extends State<BookingView> {
                                   ),
                                 ),
                                 const SizedBox(height: 12),
-
                                 SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
@@ -666,10 +673,8 @@ class _BookingViewState extends State<BookingView> {
                                     }),
                                   ),
                                 ),
-
                                 lockedDurationInfo(),
                                 const SizedBox(height: 24),
-
                                 const Text(
                                   'Pilih Meja :',
                                   style: TextStyle(
@@ -678,7 +683,6 @@ class _BookingViewState extends State<BookingView> {
                                   ),
                                 ),
                                 const SizedBox(height: 14),
-
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -703,7 +707,6 @@ class _BookingViewState extends State<BookingView> {
                     ),
                   ),
                 ),
-
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(

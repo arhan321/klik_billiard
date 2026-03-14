@@ -1,9 +1,32 @@
 import 'package:flutter/material.dart';
 import '../../core/app_colors.dart';
-import '../../data/dummy_data.dart';
+import '../../models/booking_model.dart';
 
 class HistoryView extends StatelessWidget {
   const HistoryView({super.key});
+
+  static final List<BookingModel> histories = [
+    BookingModel(
+      code: '#001',
+      date: 'Hari/Tanggal : 3 Januari',
+      packageName: 'Reguler',
+      duration: '1 jam (14:00-15:00)',
+      table: 'Meja 2 Lantai 1',
+      voucher: 'Januari bahagia',
+      total: 'Rp40.000',
+      status: 'Sudah Bayar',
+    ),
+    BookingModel(
+      code: '#022',
+      date: 'Hari/Tanggal : 3 Januari',
+      packageName: 'Paket 2 jam',
+      duration: '2 jam (15:00-17:00)',
+      table: 'Meja 2 Lantai 1',
+      voucher: 'Januari bahagia',
+      total: 'Rp70.000',
+      status: 'Sudah Bayar',
+    ),
+  ];
 
   Widget historyCard({
     required String code,
@@ -165,7 +188,7 @@ class HistoryView extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 22),
-                  ...DummyData.histories.map(
+                  ...histories.map(
                     (item) => historyCard(
                       code: item.code,
                       date: item.date,

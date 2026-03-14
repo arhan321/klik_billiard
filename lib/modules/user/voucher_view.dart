@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 import '../../core/app_colors.dart';
-import '../../data/dummy_data.dart';
+import '../../models/voucher_model.dart';
 
 class VoucherView extends StatelessWidget {
   const VoucherView({super.key});
+
+  static final List<VoucherModel> vouchers = [
+    VoucherModel(
+      title: 'JANUARI BAHAGIA',
+      subtitle: 'Berlaku selama bulan Januari 2026',
+      code: 'JANHAPPY',
+    ),
+    VoucherModel(
+      title: 'NEW USER',
+      subtitle: 'Diskon khusus pengguna baru',
+      code: 'NEWKLIK',
+    ),
+  ];
 
   Widget voucherCard({
     required String title,
@@ -122,7 +135,7 @@ class VoucherView extends StatelessWidget {
                     style: TextStyle(color: AppColors.lightText, fontSize: 15),
                   ),
                   const SizedBox(height: 24),
-                  ...DummyData.vouchers.map(
+                  ...vouchers.map(
                     (item) => voucherCard(
                       title: item.title,
                       subtitle: item.subtitle,

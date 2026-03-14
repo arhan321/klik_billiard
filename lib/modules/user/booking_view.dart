@@ -282,208 +282,220 @@ class _BookingViewState extends State<BookingView> {
           ),
         ),
         child: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight:
-                    MediaQuery.of(context).size.height -
-                    MediaQuery.of(context).padding.top -
-                    40,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
-                  ),
-                  const SizedBox(height: 4),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Expanded(
-                        child: Text(
-                          'Booking',
-                          style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.white,
+                      IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(Icons.arrow_back, color: Colors.white),
+                      ),
+                      const SizedBox(height: 4),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Expanded(
+                            child: Text(
+                              'Booking',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.white,
+                              ),
+                            ),
                           ),
+                          smallTopButton(context),
+                        ],
+                      ),
+                      const SizedBox(height: 18),
+                      Row(
+                        children: [
+                          const Expanded(
+                            child: Text(
+                              'Pilih Tanggal / Hari :',
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                          monthDropdown(),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: List.generate(dateItems.length, (index) {
+                            final item = dateItems[index];
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 8),
+                              child: dateChip(
+                                item['day']!,
+                                item['date']!,
+                                selected: selectedDateIndex == index,
+                                onTap: () {
+                                  setState(() {
+                                    selectedDateIndex = index;
+                                  });
+                                },
+                              ),
+                            );
+                          }),
                         ),
                       ),
-                      smallTopButton(context),
-                    ],
-                  ),
-                  const SizedBox(height: 18),
-                  Row(
-                    children: [
-                      const Expanded(
-                        child: Text(
-                          'Pilih Tanggal / Hari :',
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 16,
-                          ),
-                        ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          statusLegend(label: 'Unavailable', selected: false),
+                          const SizedBox(width: 20),
+                          statusLegend(label: 'Dipilih', selected: true),
+                        ],
                       ),
-                      monthDropdown(),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: List.generate(dateItems.length, (index) {
-                        final item = dateItems[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: dateChip(
-                            item['day']!,
-                            item['date']!,
-                            selected: selectedDateIndex == index,
+                      const SizedBox(height: 22),
+                      const Text(
+                        'Pilih Paket Main :',
+                        style: TextStyle(color: AppColors.white, fontSize: 16),
+                      ),
+                      const SizedBox(height: 10),
+                      Wrap(
+                        spacing: 10,
+                        runSpacing: 10,
+                        children: List.generate(packageItems.length, (index) {
+                          return packageChip(
+                            packageItems[index],
+                            selected: selectedPackageIndex == index,
                             onTap: () {
                               setState(() {
-                                selectedDateIndex = index;
+                                selectedPackageIndex = index;
                               });
                             },
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      statusLegend(label: 'Unavailable', selected: false),
-                      const SizedBox(width: 20),
-                      statusLegend(label: 'Dipilih', selected: true),
+                          );
+                        }),
+                      ),
+                      const SizedBox(height: 22),
+                      const Text(
+                        'Mulai Main :',
+                        style: TextStyle(color: AppColors.white, fontSize: 16),
+                      ),
+                      const SizedBox(height: 10),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: List.generate(times.length, (index) {
+                          return timeChip(
+                            times[index],
+                            selected: selectedTimeIndex == index,
+                            onTap: () {
+                              setState(() {
+                                selectedTimeIndex = index;
+                              });
+                            },
+                          );
+                        }),
+                      ),
+                      const SizedBox(height: 22),
+                      const Text(
+                        'Pilih Meja :',
+                        style: TextStyle(color: AppColors.white, fontSize: 16),
+                      ),
+                      const SizedBox(height: 12),
+                      const Text(
+                        'Lantai 1',
+                        style: TextStyle(
+                          color: AppColors.lightText,
+                          fontSize: 15,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: List.generate(floor1Tables.length, (index) {
+                          final table = floor1Tables[index];
+                          final globalIndex = index;
+                          return tableCard(
+                            table['title'],
+                            selectedTableIndex == globalIndex
+                                ? 'Dipilih'
+                                : table['status'],
+                            selected: selectedTableIndex == globalIndex,
+                            available: table['available'],
+                            onTap: () {
+                              setState(() {
+                                selectedTableIndex = globalIndex;
+                              });
+                            },
+                          );
+                        }),
+                      ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'Lantai 2',
+                        style: TextStyle(
+                          color: AppColors.lightText,
+                          fontSize: 15,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: List.generate(floor2Tables.length, (index) {
+                          final table = floor2Tables[index];
+                          final globalIndex = floor1Tables.length + index;
+                          return tableCard(
+                            table['title'],
+                            selectedTableIndex == globalIndex
+                                ? 'Dipilih'
+                                : table['status'],
+                            selected: selectedTableIndex == globalIndex,
+                            available: table['available'],
+                            onTap: () {
+                              setState(() {
+                                selectedTableIndex = globalIndex;
+                              });
+                            },
+                          );
+                        }),
+                      ),
                     ],
                   ),
-                  const SizedBox(height: 22),
-                  const Text(
-                    'Pilih Paket Main :',
-                    style: TextStyle(color: AppColors.white, fontSize: 16),
-                  ),
-                  const SizedBox(height: 10),
-                  Wrap(
-                    spacing: 10,
-                    runSpacing: 10,
-                    children: List.generate(packageItems.length, (index) {
-                      return packageChip(
-                        packageItems[index],
-                        selected: selectedPackageIndex == index,
-                        onTap: () {
-                          setState(() {
-                            selectedPackageIndex = index;
-                          });
-                        },
-                      );
-                    }),
-                  ),
-                  const SizedBox(height: 22),
-                  const Text(
-                    'Mulai Main :',
-                    style: TextStyle(color: AppColors.white, fontSize: 16),
-                  ),
-                  const SizedBox(height: 10),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: List.generate(times.length, (index) {
-                      return timeChip(
-                        times[index],
-                        selected: selectedTimeIndex == index,
-                        onTap: () {
-                          setState(() {
-                            selectedTimeIndex = index;
-                          });
-                        },
-                      );
-                    }),
-                  ),
-                  const SizedBox(height: 22),
-                  const Text(
-                    'Pilih Meja :',
-                    style: TextStyle(color: AppColors.white, fontSize: 16),
-                  ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    'Lantai 1',
-                    style: TextStyle(color: AppColors.lightText, fontSize: 15),
-                  ),
-                  const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: List.generate(floor1Tables.length, (index) {
-                      final table = floor1Tables[index];
-                      final globalIndex = index;
-                      return tableCard(
-                        table['title'],
-                        selectedTableIndex == globalIndex
-                            ? 'Dipilih'
-                            : table['status'],
-                        selected: selectedTableIndex == globalIndex,
-                        available: table['available'],
-                        onTap: () {
-                          setState(() {
-                            selectedTableIndex = globalIndex;
-                          });
-                        },
-                      );
-                    }),
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Lantai 2',
-                    style: TextStyle(color: AppColors.lightText, fontSize: 15),
-                  ),
-                  const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: List.generate(floor2Tables.length, (index) {
-                      final table = floor2Tables[index];
-                      final globalIndex = floor1Tables.length + index;
-                      return tableCard(
-                        table['title'],
-                        selectedTableIndex == globalIndex
-                            ? 'Dipilih'
-                            : table['status'],
-                        selected: selectedTableIndex == globalIndex,
-                        available: table['available'],
-                        onTap: () {
-                          setState(() {
-                            selectedTableIndex = globalIndex;
-                          });
-                        },
-                      );
-                    }),
-                  ),
-                  const SizedBox(height: 28),
-                  CustomButton(
-                    text: 'Selanjutnya',
-                    onPressed: () {
-                      final selectedDay = dateItems[selectedDateIndex];
-                      final selectedPackage =
-                          packageItems[selectedPackageIndex];
-                      final selectedTime = times[selectedTimeIndex];
-                      final selectedTable =
-                          allTables[selectedTableIndex]['title'] as String;
-
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'Dipilih: ${selectedDay['day']} ${selectedDay['date']} $selectedMonth | $selectedPackage | $selectedTime | $selectedTable',
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                ),
               ),
-            ),
+
+              Container(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withOpacity(0.08),
+                  border: Border(
+                    top: BorderSide(color: Colors.white.withOpacity(0.08)),
+                  ),
+                ),
+                child: CustomButton(
+                  text: 'Selanjutnya',
+                  onPressed: () {
+                    final selectedDay = dateItems[selectedDateIndex];
+                    final selectedPackage = packageItems[selectedPackageIndex];
+                    final selectedTime = times[selectedTimeIndex];
+                    final selectedTable =
+                        allTables[selectedTableIndex]['title'] as String;
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          'Dipilih: ${selectedDay['day']} ${selectedDay['date']} $selectedMonth | $selectedPackage | $selectedTime | $selectedTable',
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ),

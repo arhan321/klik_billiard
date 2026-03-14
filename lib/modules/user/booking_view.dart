@@ -41,7 +41,25 @@ class _BookingViewState extends State<BookingView> {
   ];
 
   final List<String> packageItems = ['Reguler', 'Paket 2 Jam'];
-  final List<String> times = ['13:00', '14:00', '15:00', '16:00', '17:00'];
+
+  final List<String> times = [
+    '13:00',
+    '14:00',
+    '15:00',
+    '16:00',
+    '17:00',
+    '18:00',
+    '19:00',
+    '20:00',
+    '21:00',
+    '22:00',
+    '23:00',
+    '00:00',
+    '01:00',
+    '02:00',
+    '03:00',
+    '04:00',
+  ];
 
   final List<Map<String, dynamic>> floor1Tables = [
     {'title': 'Meja 1', 'status': 'Terbooking', 'available': false},
@@ -55,6 +73,32 @@ class _BookingViewState extends State<BookingView> {
     {'title': 'Meja 6', 'status': 'Kosong', 'available': true},
     {'title': 'Meja 7', 'status': 'Kosong', 'available': true},
   ];
+
+  bool get isTwoHoursPackage => selectedPackageIndex == 1;
+
+  String get selectedStartTime => times[selectedTimeIndex];
+
+  String get selectedEndTime {
+    if (isTwoHoursPackage) {
+      final endIndex = (selectedTimeIndex + 2) % times.length;
+      return times[endIndex];
+    } else {
+      final endIndex = (selectedTimeIndex + 1) % times.length;
+      return times[endIndex];
+    }
+  }
+
+  String get selectedDurationText {
+    if (isTwoHoursPackage) {
+      return '2 Jam ($selectedStartTime-$selectedEndTime)';
+    }
+    return '1 Jam ($selectedStartTime-$selectedEndTime)';
+  }
+
+  bool isTimeDisabled(int index) {
+    if (!isTwoHoursPackage) return false;
+    return index == times.length - 1;
+  }
 
   Widget dateChip(
     String day,
@@ -126,22 +170,30 @@ class _BookingViewState extends State<BookingView> {
   Widget timeChip(
     String text, {
     required bool selected,
-    required VoidCallback onTap,
+    required bool disabled,
+    required VoidCallback? onTap,
   }) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: disabled ? null : onTap,
       child: Container(
-        width: 56,
+        width: 72,
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-          color: selected ? AppColors.secondary : Colors.transparent,
+          color: disabled
+              ? Colors.white10
+              : selected
+              ? AppColors.secondary
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.white24),
+          border: Border.all(color: disabled ? Colors.white12 : Colors.white24),
         ),
         child: Text(
           text,
           textAlign: TextAlign.center,
-          style: const TextStyle(color: AppColors.white, fontSize: 12),
+          style: TextStyle(
+            color: disabled ? Colors.white38 : AppColors.white,
+            fontSize: 14,
+          ),
         ),
       ),
     );
@@ -266,9 +318,36 @@ class _BookingViewState extends State<BookingView> {
     );
   }
 
+  Widget lockedDurationInfo() {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(top: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      decoration: BoxDecoration(
+        color: Colors.white10,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.white12),
+      ),
+      child: Text(
+        isTwoHoursPackage
+            ? 'Paket 2 jam dipilih. Waktu otomatis terkunci: $selectedStartTime - $selectedEndTime'
+            : 'Durasi main: $selectedStartTime - $selectedEndTime',
+        style: const TextStyle(
+          color: AppColors.white,
+          fontSize: 13,
+          height: 1.4,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final allTables = [...floor1Tables, ...floor2Tables];
+
+    if (isTwoHoursPackage && selectedTimeIndex == times.length - 1) {
+      selectedTimeIndex = times.length - 2;
+    }
 
     return Scaffold(
       body: Container(
@@ -372,6 +451,11 @@ class _BookingViewState extends State<BookingView> {
                             onTap: () {
                               setState(() {
                                 selectedPackageIndex = index;
+
+                                if (isTwoHoursPackage &&
+                                    selectedTimeIndex == times.length - 1) {
+                                  selectedTimeIndex = times.length - 2;
+                                }
                               });
                             },
                           );
@@ -383,21 +467,28 @@ class _BookingViewState extends State<BookingView> {
                         style: TextStyle(color: AppColors.white, fontSize: 16),
                       ),
                       const SizedBox(height: 10),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: List.generate(times.length, (index) {
-                          return timeChip(
-                            times[index],
-                            selected: selectedTimeIndex == index,
-                            onTap: () {
-                              setState(() {
-                                selectedTimeIndex = index;
-                              });
-                            },
-                          );
-                        }),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: List.generate(times.length, (index) {
+                            final disabled = isTimeDisabled(index);
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 8),
+                              child: timeChip(
+                                times[index],
+                                selected: selectedTimeIndex == index,
+                                disabled: disabled,
+                                onTap: () {
+                                  setState(() {
+                                    selectedTimeIndex = index;
+                                  });
+                                },
+                              ),
+                            );
+                          }),
+                        ),
                       ),
+                      lockedDurationInfo(),
                       const SizedBox(height: 22),
                       const Text(
                         'Pilih Meja :',
@@ -467,7 +558,6 @@ class _BookingViewState extends State<BookingView> {
                   ),
                 ),
               ),
-
               Container(
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
                 decoration: BoxDecoration(
@@ -481,14 +571,13 @@ class _BookingViewState extends State<BookingView> {
                   onPressed: () {
                     final selectedDay = dateItems[selectedDateIndex];
                     final selectedPackage = packageItems[selectedPackageIndex];
-                    final selectedTime = times[selectedTimeIndex];
                     final selectedTable =
                         allTables[selectedTableIndex]['title'] as String;
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                          'Dipilih: ${selectedDay['day']} ${selectedDay['date']} $selectedMonth | $selectedPackage | $selectedTime | $selectedTable',
+                          'Dipilih: ${selectedDay['day']} ${selectedDay['date']} $selectedMonth | $selectedPackage | $selectedDurationText | $selectedTable',
                         ),
                       ),
                     );

@@ -31,27 +31,41 @@ class LoginView extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,
-                  vertical: 32,
+                  vertical: 24,
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 40),
-                    const Text(
-                      'Welcome Back !',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back,
                         color: AppColors.white,
                       ),
                     ),
+                    const SizedBox(height: 20),
+                    const Center(
+                      child: Text(
+                        'Welcome Back !',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.white,
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 8),
-                    const Text(
-                      'Please enter your email and password',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: AppColors.lightText,
-                        fontSize: 14,
+                    const Center(
+                      child: Text(
+                        'Please enter your email and password',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: AppColors.lightText,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 30),

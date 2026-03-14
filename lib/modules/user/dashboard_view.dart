@@ -203,22 +203,37 @@ class DashboardView extends StatelessWidget {
         children: [
           Row(
             children: [
-              const CircleAvatar(
-                radius: 20,
-                backgroundColor: Colors.white24,
-                child: Icon(Icons.person_outline, color: Colors.white),
-              ),
-              const SizedBox(width: 10),
-              const Expanded(
-                child: Text(
-                  'Hallo, Aldian Alifen !',
-                  style: TextStyle(
-                    color: AppColors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.profile);
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 6,
+                  ),
+                  color: Colors.transparent,
+                  child: Row(
+                    children: [
+                      const CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Colors.white24,
+                        child: Icon(Icons.person_outline, color: Colors.white),
+                      ),
+                      const SizedBox(width: 10),
+                      const Text(
+                        'Hallo, Aldian Alifen !',
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
+              const Spacer(),
               InkWell(
                 borderRadius: BorderRadius.circular(20),
                 onTap: () {

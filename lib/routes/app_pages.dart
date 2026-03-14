@@ -7,6 +7,7 @@ import '../modules/user/booking_detail_view.dart';
 import '../modules/user/booking_view.dart';
 import '../modules/user/dashboard_view.dart';
 import '../modules/user/history_view.dart';
+import '../modules/user/profile_view.dart';
 import '../modules/user/quick_booking_view.dart';
 import '../modules/user/tournament_view.dart';
 import '../modules/user/voucher_view.dart';
@@ -25,5 +26,6 @@ class AppPages {
     AppRoutes.quickBooking: (_) => const QuickBookingView(),
     AppRoutes.bookingDetail: (_) => const BookingDetailView(),
     AppRoutes.bookingDetailQuick: (_) => const BookingDetailQuickView(),
+    AppRoutes.profile: (_) => const ProfileView(),
   };
 }

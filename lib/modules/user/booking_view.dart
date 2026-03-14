@@ -97,9 +97,28 @@ class _BookingViewState extends State<BookingView> {
     return '1 Jam ($selectedStartTime-$selectedEndTime)';
   }
 
+  // bool isTimeDisabled(int index) {
+  //   if (!isTwoHoursPackage) return false;
+  //   return index == times.length - 1;
+  // }
+
+  // bool isTimeDisabled(int index) {
+  //   return index == times.length - 1;
+  // }
+
   bool isTimeDisabled(int index) {
-    if (!isTwoHoursPackage) return false;
-    return index == times.length - 1;
+    final lastIndex = times.length - 1; // 04:00
+    final secondLastIndex = times.length - 2; // 03:00
+
+    if (index == lastIndex) {
+      return true;
+    }
+
+    if (isTwoHoursPackage && index == secondLastIndex) {
+      return true;
+    }
+
+    return false;
   }
 
   Widget dateChip(

@@ -17,16 +17,16 @@ class DashboardView extends StatelessWidget {
         child: Column(
           children: [
             CircleAvatar(
-              radius: 24,
+              radius: 22,
               backgroundColor: AppColors.secondary,
-              child: Icon(icon, color: Colors.white),
+              child: Icon(icon, color: Colors.white, size: 22),
             ),
             const SizedBox(height: 8),
             Text(
               label,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 11,
+                fontSize: 10,
                 color: AppColors.white,
                 height: 1.3,
               ),
@@ -269,9 +269,19 @@ class DashboardView extends StatelessWidget {
               menuItem(
                 context,
                 icon: Icons.history,
-                label: 'History Booking',
+                label: 'History\nBooking',
                 onTap: () {
                   Navigator.pushNamed(context, AppRoutes.history);
+                },
+              ),
+              menuItem(
+                context,
+                icon: Icons.admin_panel_settings_outlined,
+                label: 'Admin\nMode',
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Admin Mode masih dummy')),
+                  );
                 },
               ),
             ],

@@ -398,21 +398,20 @@ class _BookingViewState extends State<BookingView> {
   Widget lockedDurationInfo() {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.only(top: 12),
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white10,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white12),
+        color: AppColors.primaryDark.withOpacity(0.90),
+        border: Border(top: BorderSide(color: Colors.white.withOpacity(0.06))),
       ),
-      child: Text(
-        isTwoHoursPackage
-            ? 'Paket 2 jam dipilih. Waktu otomatis terkunci: $selectedStartTime - $selectedEndTime'
-            : 'Durasi main: $selectedStartTime - $selectedEndTime',
-        style: const TextStyle(
-          color: AppColors.white,
-          fontSize: 13,
-          height: 1.4,
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
+          child: CustomButton(
+            text: 'Selanjutnya',
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.bookingDetail);
+            },
+          ),
         ),
       ),
     );
@@ -744,19 +743,7 @@ class _BookingViewState extends State<BookingView> {
                       child: CustomButton(
                         text: 'Selanjutnya',
                         onPressed: () {
-                          final selectedDay = dateItems[selectedDateIndex];
-                          final selectedPackage =
-                              packageItems[selectedPackageIndex];
-                          final selectedTable =
-                              allTables[selectedTableIndex]['title'] as String;
-
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Dipilih: ${selectedDay['day']} ${selectedDay['date']} $selectedMonth | $selectedPackage | $selectedDurationText | $selectedTable',
-                              ),
-                            ),
-                          );
+                          Navigator.pushNamed(context, AppRoutes.bookingDetail);
                         },
                       ),
                     ),

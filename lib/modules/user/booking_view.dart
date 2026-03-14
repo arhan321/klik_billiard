@@ -109,19 +109,34 @@ class _BookingViewState extends State<BookingView> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 56,
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        width: 72,
+        padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
-          color: selected ? AppColors.secondary : Colors.transparent,
-          borderRadius: BorderRadius.circular(10),
+          color: selected
+              ? AppColors.secondary.withOpacity(0.85)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(color: Colors.white24),
+          boxShadow: selected
+              ? [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.18),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ]
+              : null,
         ),
         child: Column(
           children: [
             Text(
               day,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: AppColors.white, fontSize: 11),
+              style: const TextStyle(
+                color: AppColors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             const SizedBox(height: 4),
             Text(
@@ -129,7 +144,7 @@ class _BookingViewState extends State<BookingView> {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: AppColors.white,
-                fontSize: 13,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -147,19 +162,30 @@ class _BookingViewState extends State<BookingView> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        constraints: const BoxConstraints(minWidth: 74),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        constraints: const BoxConstraints(minWidth: 110),
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
         decoration: BoxDecoration(
-          color: selected ? AppColors.secondary : Colors.transparent,
-          borderRadius: BorderRadius.circular(10),
+          color: selected
+              ? AppColors.secondary.withOpacity(0.85)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(color: Colors.white24),
+          boxShadow: selected
+              ? [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.18),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ]
+              : null,
         ),
         child: Text(
           text,
           textAlign: TextAlign.center,
           style: const TextStyle(
             color: AppColors.white,
-            fontSize: 13,
+            fontSize: 14,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -176,16 +202,25 @@ class _BookingViewState extends State<BookingView> {
     return GestureDetector(
       onTap: disabled ? null : onTap,
       child: Container(
-        width: 72,
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        width: 82,
+        padding: const EdgeInsets.symmetric(vertical: 11),
         decoration: BoxDecoration(
           color: disabled
               ? Colors.white10
               : selected
-              ? AppColors.secondary
+              ? AppColors.secondary.withOpacity(0.85)
               : Colors.transparent,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(color: disabled ? Colors.white12 : Colors.white24),
+          boxShadow: selected
+              ? [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.18),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ]
+              : null,
         ),
         child: Text(
           text,
@@ -193,6 +228,7 @@ class _BookingViewState extends State<BookingView> {
           style: TextStyle(
             color: disabled ? Colors.white38 : AppColors.white,
             fontSize: 14,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),
@@ -209,23 +245,38 @@ class _BookingViewState extends State<BookingView> {
     return GestureDetector(
       onTap: available ? onTap : null,
       child: Container(
-        width: 78,
-        padding: const EdgeInsets.all(10),
+        width: 88,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
         decoration: BoxDecoration(
-          color: selected ? AppColors.secondary : Colors.white10,
-          borderRadius: BorderRadius.circular(12),
+          color: selected
+              ? AppColors.secondary.withOpacity(0.85)
+              : Colors.white10,
+          borderRadius: BorderRadius.circular(14),
           border: Border.all(
             color: available ? Colors.white24 : Colors.white12,
           ),
+          boxShadow: selected
+              ? [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.16),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ]
+              : null,
         ),
         child: Column(
           children: [
-            const Icon(Icons.table_restaurant, color: Colors.white),
+            const Icon(Icons.table_restaurant, color: Colors.white, size: 24),
             const SizedBox(height: 8),
             Text(
               title,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white, fontSize: 11),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 11,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             const SizedBox(height: 4),
             Text(
@@ -244,12 +295,12 @@ class _BookingViewState extends State<BookingView> {
       onTap: () {
         Navigator.pushNamed(context, AppRoutes.quickBooking);
       },
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(22),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
         decoration: BoxDecoration(
           color: AppColors.secondary,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(22),
           border: Border.all(color: Colors.white70),
         ),
         child: const Text(
@@ -280,7 +331,7 @@ class _BookingViewState extends State<BookingView> {
         const SizedBox(width: 6),
         Text(
           label,
-          style: const TextStyle(color: AppColors.lightText, fontSize: 11),
+          style: const TextStyle(color: AppColors.white, fontSize: 12),
         ),
       ],
     );
@@ -341,6 +392,58 @@ class _BookingViewState extends State<BookingView> {
     );
   }
 
+  Widget floorSection({
+    required String title,
+    required List<Map<String, dynamic>> tables,
+    required int startIndex,
+  }) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.05),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.white12),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                color: AppColors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: List.generate(tables.length, (index) {
+                final table = tables[index];
+                final globalIndex = startIndex + index;
+                return tableCard(
+                  table['title'],
+                  selectedTableIndex == globalIndex
+                      ? 'Dipilih'
+                      : table['status'],
+                  selected: selectedTableIndex == globalIndex,
+                  available: table['available'],
+                  onTap: () {
+                    setState(() {
+                      selectedTableIndex = globalIndex;
+                    });
+                  },
+                );
+              }),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final allTables = [...floor1Tables, ...floor2Tables];
@@ -350,243 +453,294 @@ class _BookingViewState extends State<BookingView> {
     }
 
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [AppColors.primaryDark, AppColors.primary],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/foto_biliard.jpg'),
+                  fit: BoxFit.cover,
+                  alignment: Alignment.topCenter,
+                ),
+              ),
+            ),
           ),
-        ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: const Icon(Icons.arrow_back, color: Colors.white),
-                      ),
-                      const SizedBox(height: 4),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Expanded(
-                            child: Text(
-                              'Booking',
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.white,
+
+          Positioned.fill(
+            child: Container(color: AppColors.primaryDark.withOpacity(0.74)),
+          ),
+
+          SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: EdgeInsets.zero,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 8),
+
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: IconButton(
+                              onPressed: () => Navigator.pop(context),
+                              icon: const Icon(
+                                Icons.arrow_back,
+                                color: Colors.white,
+                                size: 30,
                               ),
                             ),
                           ),
-                          smallTopButton(context),
-                        ],
-                      ),
-                      const SizedBox(height: 18),
-                      Row(
-                        children: [
-                          const Expanded(
-                            child: Text(
-                              'Pilih Tanggal / Hari :',
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontSize: 16,
+                        ),
+
+                        const SizedBox(height: 110),
+
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryDark.withOpacity(0.90),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(34),
+                              topRight: Radius.circular(34),
+                            ),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.08),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.16),
+                                blurRadius: 18,
+                                offset: const Offset(0, 8),
                               ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(18, 22, 18, 120),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Expanded(
+                                      child: Text(
+                                        'Booking',
+                                        style: TextStyle(
+                                          fontSize: 28,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    smallTopButton(context),
+                                  ],
+                                ),
+                                const SizedBox(height: 22),
+
+                                Row(
+                                  children: [
+                                    const Expanded(
+                                      child: Text(
+                                        'Pilih Tanggal/Hari :',
+                                        style: TextStyle(
+                                          color: AppColors.white,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ),
+                                    monthDropdown(),
+                                  ],
+                                ),
+                                const SizedBox(height: 12),
+
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: List.generate(dateItems.length, (
+                                      index,
+                                    ) {
+                                      final item = dateItems[index];
+                                      return Padding(
+                                        padding: const EdgeInsets.only(
+                                          right: 8,
+                                        ),
+                                        child: dateChip(
+                                          item['day']!,
+                                          item['date']!,
+                                          selected: selectedDateIndex == index,
+                                          onTap: () {
+                                            setState(() {
+                                              selectedDateIndex = index;
+                                            });
+                                          },
+                                        ),
+                                      );
+                                    }),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+
+                                Row(
+                                  children: [
+                                    statusLegend(
+                                      label: 'Unavailable',
+                                      selected: false,
+                                    ),
+                                    const SizedBox(width: 24),
+                                    statusLegend(
+                                      label: 'Dipilih',
+                                      selected: true,
+                                    ),
+                                  ],
+                                ),
+
+                                const SizedBox(height: 24),
+                                const Text(
+                                  'Pilih Paket Main :',
+                                  style: TextStyle(
+                                    color: AppColors.white,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                const SizedBox(height: 12),
+
+                                Wrap(
+                                  spacing: 10,
+                                  runSpacing: 10,
+                                  children: List.generate(packageItems.length, (
+                                    index,
+                                  ) {
+                                    return packageChip(
+                                      packageItems[index],
+                                      selected: selectedPackageIndex == index,
+                                      onTap: () {
+                                        setState(() {
+                                          selectedPackageIndex = index;
+                                          if (isTwoHoursPackage &&
+                                              selectedTimeIndex ==
+                                                  times.length - 1) {
+                                            selectedTimeIndex =
+                                                times.length - 2;
+                                          }
+                                        });
+                                      },
+                                    );
+                                  }),
+                                ),
+
+                                const SizedBox(height: 24),
+                                const Text(
+                                  'Mulai Main :',
+                                  style: TextStyle(
+                                    color: AppColors.white,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                const SizedBox(height: 12),
+
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: List.generate(times.length, (
+                                      index,
+                                    ) {
+                                      final disabled = isTimeDisabled(index);
+                                      return Padding(
+                                        padding: const EdgeInsets.only(
+                                          right: 8,
+                                        ),
+                                        child: timeChip(
+                                          times[index],
+                                          selected: selectedTimeIndex == index,
+                                          disabled: disabled,
+                                          onTap: () {
+                                            setState(() {
+                                              selectedTimeIndex = index;
+                                            });
+                                          },
+                                        ),
+                                      );
+                                    }),
+                                  ),
+                                ),
+
+                                lockedDurationInfo(),
+                                const SizedBox(height: 24),
+
+                                const Text(
+                                  'Pilih Meja :',
+                                  style: TextStyle(
+                                    color: AppColors.white,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                const SizedBox(height: 14),
+
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    floorSection(
+                                      title: 'Lantai 1',
+                                      tables: floor1Tables,
+                                      startIndex: 0,
+                                    ),
+                                    const SizedBox(width: 12),
+                                    floorSection(
+                                      title: 'Lantai 2',
+                                      tables: floor2Tables,
+                                      startIndex: floor1Tables.length,
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
-                          monthDropdown(),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: List.generate(dateItems.length, (index) {
-                            final item = dateItems[index];
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 8),
-                              child: dateChip(
-                                item['day']!,
-                                item['date']!,
-                                selected: selectedDateIndex == index,
-                                onTap: () {
-                                  setState(() {
-                                    selectedDateIndex = index;
-                                  });
-                                },
-                              ),
-                            );
-                          }),
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          statusLegend(label: 'Unavailable', selected: false),
-                          const SizedBox(width: 20),
-                          statusLegend(label: 'Dipilih', selected: true),
-                        ],
-                      ),
-                      const SizedBox(height: 22),
-                      const Text(
-                        'Pilih Paket Main :',
-                        style: TextStyle(color: AppColors.white, fontSize: 16),
-                      ),
-                      const SizedBox(height: 10),
-                      Wrap(
-                        spacing: 10,
-                        runSpacing: 10,
-                        children: List.generate(packageItems.length, (index) {
-                          return packageChip(
-                            packageItems[index],
-                            selected: selectedPackageIndex == index,
-                            onTap: () {
-                              setState(() {
-                                selectedPackageIndex = index;
-
-                                if (isTwoHoursPackage &&
-                                    selectedTimeIndex == times.length - 1) {
-                                  selectedTimeIndex = times.length - 2;
-                                }
-                              });
-                            },
-                          );
-                        }),
-                      ),
-                      const SizedBox(height: 22),
-                      const Text(
-                        'Mulai Main :',
-                        style: TextStyle(color: AppColors.white, fontSize: 16),
-                      ),
-                      const SizedBox(height: 10),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: List.generate(times.length, (index) {
-                            final disabled = isTimeDisabled(index);
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 8),
-                              child: timeChip(
-                                times[index],
-                                selected: selectedTimeIndex == index,
-                                disabled: disabled,
-                                onTap: () {
-                                  setState(() {
-                                    selectedTimeIndex = index;
-                                  });
-                                },
-                              ),
-                            );
-                          }),
-                        ),
-                      ),
-                      lockedDurationInfo(),
-                      const SizedBox(height: 22),
-                      const Text(
-                        'Pilih Meja :',
-                        style: TextStyle(color: AppColors.white, fontSize: 16),
-                      ),
-                      const SizedBox(height: 12),
-                      const Text(
-                        'Lantai 1',
-                        style: TextStyle(
-                          color: AppColors.lightText,
-                          fontSize: 15,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: List.generate(floor1Tables.length, (index) {
-                          final table = floor1Tables[index];
-                          final globalIndex = index;
-                          return tableCard(
-                            table['title'],
-                            selectedTableIndex == globalIndex
-                                ? 'Dipilih'
-                                : table['status'],
-                            selected: selectedTableIndex == globalIndex,
-                            available: table['available'],
-                            onTap: () {
-                              setState(() {
-                                selectedTableIndex = globalIndex;
-                              });
-                            },
-                          );
-                        }),
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Lantai 2',
-                        style: TextStyle(
-                          color: AppColors.lightText,
-                          fontSize: 15,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: List.generate(floor2Tables.length, (index) {
-                          final table = floor2Tables[index];
-                          final globalIndex = floor1Tables.length + index;
-                          return tableCard(
-                            table['title'],
-                            selectedTableIndex == globalIndex
-                                ? 'Dipilih'
-                                : table['status'],
-                            selected: selectedTableIndex == globalIndex,
-                            available: table['available'],
-                            onTap: () {
-                              setState(() {
-                                selectedTableIndex = globalIndex;
-                              });
-                            },
-                          );
-                        }),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
-                decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.08),
-                  border: Border(
-                    top: BorderSide(color: Colors.white.withOpacity(0.08)),
+
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryDark.withOpacity(0.90),
+                    border: Border(
+                      top: BorderSide(color: Colors.white.withOpacity(0.06)),
+                    ),
+                  ),
+                  child: SafeArea(
+                    top: false,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
+                      child: CustomButton(
+                        text: 'Selanjutnya',
+                        onPressed: () {
+                          final selectedDay = dateItems[selectedDateIndex];
+                          final selectedPackage =
+                              packageItems[selectedPackageIndex];
+                          final selectedTable =
+                              allTables[selectedTableIndex]['title'] as String;
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Dipilih: ${selectedDay['day']} ${selectedDay['date']} $selectedMonth | $selectedPackage | $selectedDurationText | $selectedTable',
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                   ),
                 ),
-                child: CustomButton(
-                  text: 'Selanjutnya',
-                  onPressed: () {
-                    final selectedDay = dateItems[selectedDateIndex];
-                    final selectedPackage = packageItems[selectedPackageIndex];
-                    final selectedTable =
-                        allTables[selectedTableIndex]['title'] as String;
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          'Dipilih: ${selectedDay['day']} ${selectedDay['date']} $selectedMonth | $selectedPackage | $selectedDurationText | $selectedTable',
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

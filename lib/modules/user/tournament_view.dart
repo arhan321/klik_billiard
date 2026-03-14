@@ -9,6 +9,8 @@ class TournamentView extends StatelessWidget {
     required String title,
     required String date,
     required String prize,
+    required String image,
+    required String description,
   }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
@@ -21,17 +23,13 @@ class TournamentView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 160,
+            height: 190,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Colors.white10,
               borderRadius: BorderRadius.circular(14),
-            ),
-            child: const Center(
-              child: Icon(
-                Icons.image_outlined,
-                color: Colors.white54,
-                size: 42,
+              image: DecorationImage(
+                image: AssetImage(image),
+                fit: BoxFit.cover,
               ),
             ),
           ),
@@ -44,7 +42,7 @@ class TournamentView extends StatelessWidget {
               color: AppColors.white,
             ),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 8),
           Text(
             'Jadwal : $date',
             style: const TextStyle(color: AppColors.lightText, fontSize: 15),
@@ -53,6 +51,15 @@ class TournamentView extends StatelessWidget {
           Text(
             'Prize Pool : $prize',
             style: const TextStyle(color: AppColors.lightText, fontSize: 15),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            description,
+            style: const TextStyle(
+              color: AppColors.white,
+              fontSize: 14,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -108,6 +115,8 @@ class TournamentView extends StatelessWidget {
                       title: item.title,
                       date: item.date,
                       prize: item.prize,
+                      image: item.image,
+                      description: item.description,
                     ),
                   ),
                 ],

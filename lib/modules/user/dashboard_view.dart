@@ -57,11 +57,11 @@ class DashboardView extends StatelessWidget {
             height: 105,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Colors.white12,
               borderRadius: BorderRadius.circular(16),
-            ),
-            child: const Center(
-              child: Icon(Icons.image, color: Colors.white54, size: 38),
+              image: const DecorationImage(
+                image: AssetImage('assets/images/meja_biliard.jpg'),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const SizedBox(height: 14),
@@ -88,7 +88,6 @@ class DashboardView extends StatelessWidget {
   Widget newsCard({
     required String title,
     required String subtitle,
-    required String buttonText,
     VoidCallback? onTap,
   }) {
     return Container(
@@ -105,13 +104,9 @@ class DashboardView extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              gradient: LinearGradient(
-                colors: [
-                  AppColors.cardDark.withOpacity(0.95),
-                  AppColors.secondary.withOpacity(0.9),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+              image: const DecorationImage(
+                image: AssetImage('assets/images/meja_biliard.jpg'),
+                fit: BoxFit.cover,
               ),
             ),
           ),
@@ -119,7 +114,15 @@ class DashboardView extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                color: Colors.white.withOpacity(0.03),
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.black.withOpacity(0.45),
+                    AppColors.primaryDark.withOpacity(0.35),
+                    AppColors.secondary.withOpacity(0.30),
+                  ],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
               ),
             ),
           ),
@@ -168,9 +171,9 @@ class DashboardView extends StatelessWidget {
                   elevation: 0,
                 ),
                 onPressed: onTap ?? () {},
-                child: Text(
-                  buttonText,
-                  style: const TextStyle(fontWeight: FontWeight.w600),
+                child: const Text(
+                  'Cek Detail',
+                  style: TextStyle(fontWeight: FontWeight.w600),
                 ),
               ),
             ),
@@ -364,7 +367,6 @@ class DashboardView extends StatelessWidget {
                         title: 'INFORMASI MEJA BOOKING',
                         subtitle:
                             'Cek informasi meja yang tersedia dan terbooking',
-                        buttonText: 'Cek Detail',
                         onTap: () {
                           Navigator.pushNamed(context, AppRoutes.booking);
                         },
@@ -372,7 +374,6 @@ class DashboardView extends StatelessWidget {
                       newsCard(
                         title: 'TIBA-TIBA FUNGAME',
                         subtitle: 'Tournament seru mingguan untuk member',
-                        buttonText: 'Lihat',
                         onTap: () {
                           Navigator.pushNamed(context, AppRoutes.tournament);
                         },
@@ -381,7 +382,6 @@ class DashboardView extends StatelessWidget {
                         title: 'VOUCHER DISKON JANUARI',
                         subtitle:
                             'Gunakan voucher untuk potongan harga booking',
-                        buttonText: 'Pakai',
                         onTap: () {
                           Navigator.pushNamed(context, AppRoutes.voucher);
                         },

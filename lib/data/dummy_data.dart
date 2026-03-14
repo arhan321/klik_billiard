@@ -20,12 +20,17 @@ class DummyData {
     TournamentModel(
       title: 'Tiba-Tiba Fun Game',
       date: '30 Januari 2026',
-      prize: 'Rp4.000.000',
+      prize: 'Rp1.100.000',
+      image: 'assets/images/fungame.jpg',
+      description: 'Fun game mingguan untuk kategori 3B, 3A, dan 4SB.',
     ),
     TournamentModel(
-      title: 'Home Tournament',
-      date: 'Minggu, 2 Februari 2026',
-      prize: 'Rp5.000.000',
+      title: 'Home Tournament Klik',
+      date: 'Minggu, 14 Desember 2025 | 13.00 WIB',
+      prize: 'Rp6.400.000',
+      image: 'assets/images/home_tournament.jpg',
+      description:
+          'HC 3B, 3A, dan 4SB. Biaya registrasi 120K + rokok LA, slot terbatas 64 pemain.',
     ),
   ];
 

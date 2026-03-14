@@ -1,9 +1,46 @@
 import 'package:flutter/material.dart';
 import '../../core/app_colors.dart';
-import '../../data/dummy_data.dart';
+import '../../models/tournament_model.dart';
 
 class TournamentView extends StatelessWidget {
   const TournamentView({super.key});
+
+  static final List<TournamentModel> tournaments = [
+    TournamentModel(
+      title: 'Tiba-Tiba Fun Game',
+      date: '30 Januari 2026',
+      prize: 'Rp1.100.000',
+      image: 'assets/images/fungame.jpg',
+      description: 'Fun game mingguan untuk kategori 3B, 3A, dan 4SB.',
+    ),
+    TournamentModel(
+      title: 'Home Tournament Klik',
+      date: 'Minggu, 14 Desember 2025 | 13.00 WIB',
+      prize: 'Rp6.400.000',
+      image: 'assets/images/turnament.jpg',
+      description:
+          'HC 3B, 3A, & 4SB\n\n'
+          'HARI MINGGU 14 DESEMBER 2025 Start 13.00 WIB\n\n'
+          '🔥 Prize Pool: 6.400.000\n'
+          '🏆 Champion: 3000k + Trophy\n'
+          '🥈 Runner Up: 1300k + Trophy\n'
+          '🥉 Semifinalis: 650k + Trophy\n'
+          '8 besar : 200k\n\n'
+          '🎟️ Biaya Registrasi: 120k + Rokok LA\n'
+          '🧑‍🤝‍🧑 Slot terbatas hanya 64 pemain!\n\n'
+          '📌 Rules 9 Ball | No Break Box | Break bergantian | HC sesuai Klik Billiard\n\n'
+          'Fur\n'
+          '4SB vs 3A : 1 frame\n'
+          '4SB vs 3B : 8 seri\n'
+          '3A vs 3B : 1 frame\n\n'
+          '📲 Daftar sekarang!\n'
+          'CP: 081556513415 (EPPO)\n'
+          '089652775973 (ALDIAN)\n\n'
+          '📍 Lokasi: Klik Billiard & Café\n'
+          '📺 Live on TikTok: @klik.billiard.academy\n\n'
+          'Ayo buruan daftar dan rasakan keseruannya! 🔥🎱',
+    ),
+  ];
 
   Widget tournamentCard({
     required String title,
@@ -110,7 +147,7 @@ class TournamentView extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  ...DummyData.tournaments.map(
+                  ...tournaments.map(
                     (item) => tournamentCard(
                       title: item.title,
                       date: item.date,

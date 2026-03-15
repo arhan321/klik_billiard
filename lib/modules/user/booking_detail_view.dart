@@ -36,6 +36,35 @@ class BookingDetailView extends StatelessWidget {
     );
   }
 
+  Widget paymentButton(BuildContext context) {
+    return Center(
+      child: SizedBox(
+        width: 185,
+        height: 52,
+        child: ElevatedButton(
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Button Payment masih dummy')),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.softWhite,
+            foregroundColor: AppColors.primary,
+            elevation: 8,
+            shadowColor: Colors.black45,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(28),
+            ),
+          ),
+          child: const Text(
+            'Payment',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,13 +122,32 @@ class BookingDetailView extends StatelessWidget {
                   detailField('Total biaya :', 'Rp40.000'),
                   const SizedBox(height: 8),
                   const Text(
-                    'Datang ke tempat sesuai jam yang di tentukan. Jika sudah bayar tunjukan bukti.',
+                    'Datang ke tempat sesuai jam yang di tentukan !\n'
+                    'jangan sampai telat jika telat dari jadwal di atas\n'
+                    'maka status booking akan hangus !',
                     style: TextStyle(
                       color: AppColors.white,
                       fontSize: 16,
                       height: 1.4,
                     ),
                   ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    '__________________________',
+                    style: TextStyle(color: AppColors.white, fontSize: 18),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Jika sudah bayar tunjukan bukti\n'
+                    'pada halaman histori ke kasir ya!',
+                    style: TextStyle(
+                      color: AppColors.white,
+                      fontSize: 16,
+                      height: 1.4,
+                    ),
+                  ),
+                  const SizedBox(height: 28),
+                  paymentButton(context),
                 ],
               ),
             ),

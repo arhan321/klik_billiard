@@ -12,4 +12,5 @@ class AppRoutes {
   static const String bookingDetail = '/booking-detail';
   static const String bookingDetailQuick = '/booking-detail-quick';
   static const String profile = '/profile';
+  static const String myBooking = '/my-booking';
 }

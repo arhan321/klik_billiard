@@ -12,6 +12,7 @@ import '../modules/user/quick_booking_view.dart';
 import '../modules/user/tournament_view.dart';
 import '../modules/user/voucher_view.dart';
 import 'app_routes.dart';
+import '../modules/user/my_booking_view.dart';
 
 class AppPages {
   static Map<String, WidgetBuilder> routes = {
@@ -27,5 +28,6 @@ class AppPages {
     AppRoutes.bookingDetail: (_) => const BookingDetailView(),
     AppRoutes.bookingDetailQuick: (_) => const BookingDetailQuickView(),
     AppRoutes.profile: (_) => const ProfileView(),
+    AppRoutes.myBooking: (_) => const MyBookingView(),
   };
 }

@@ -11,9 +11,11 @@ class DashboardView extends StatelessWidget {
     required String label,
     required VoidCallback onTap,
   }) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: onTap,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 72,
+        margin: const EdgeInsets.only(right: 10),
         child: Column(
           children: [
             CircleAvatar(
@@ -257,52 +259,63 @@ class DashboardView extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 22),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              menuItem(
-                context,
-                icon: Icons.table_restaurant,
-                label: 'Booking\nMeja',
-                onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.booking);
-                },
-              ),
-              menuItem(
-                context,
-                icon: Icons.confirmation_num_outlined,
-                label: 'Voucher',
-                onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.voucher);
-                },
-              ),
-              menuItem(
-                context,
-                icon: Icons.emoji_events,
-                label: 'Info tournament',
-                onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.tournament);
-                },
-              ),
-              menuItem(
-                context,
-                icon: Icons.history,
-                label: 'History\nBooking',
-                onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.history);
-                },
-              ),
-              menuItem(
-                context,
-                icon: Icons.admin_panel_settings_outlined,
-                label: 'Admin\nMode',
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Admin Mode masih dummy')),
-                  );
-                },
-              ),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                menuItem(
+                  context,
+                  icon: Icons.table_restaurant,
+                  label: 'Booking\nMeja',
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.booking);
+                  },
+                ),
+                menuItem(
+                  context,
+                  icon: Icons.confirmation_num_outlined,
+                  label: 'Voucher',
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.voucher);
+                  },
+                ),
+                menuItem(
+                  context,
+                  icon: Icons.emoji_events,
+                  label: 'Info\ntournament',
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.tournament);
+                  },
+                ),
+                menuItem(
+                  context,
+                  icon: Icons.history,
+                  label: 'History\nBooking',
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.history);
+                  },
+                ),
+                menuItem(
+                  context,
+                  icon: Icons.receipt_long,
+                  label: 'Booking\nSaya',
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.myBooking);
+                  },
+                ),
+                menuItem(
+                  context,
+                  icon: Icons.admin_panel_settings_outlined,
+                  label: 'Admin\nMode',
+                  onTap: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Admin Mode masih dummy')),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 16),
           Container(

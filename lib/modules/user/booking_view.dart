@@ -82,10 +82,10 @@ class _BookingViewState extends State<BookingView> {
 
   String get selectedEndTime {
     if (isTwoHoursPackage) {
-      final endIndex = (selectedTimeIndex + 2) % times.length;
+      final endIndex = selectedTimeIndex + 2;
       return times[endIndex];
     } else {
-      final endIndex = (selectedTimeIndex + 1) % times.length;
+      final endIndex = selectedTimeIndex + 1;
       return times[endIndex];
     }
   }
@@ -96,15 +96,6 @@ class _BookingViewState extends State<BookingView> {
     }
     return '1 Jam ($selectedStartTime-$selectedEndTime)';
   }
-
-  // bool isTimeDisabled(int index) {
-  //   if (!isTwoHoursPackage) return false;
-  //   return index == times.length - 1;
-  // }
-
-  // bool isTimeDisabled(int index) {
-  //   return index == times.length - 1;
-  // }
 
   bool isTimeDisabled(int index) {
     final lastIndex = times.length - 1; // 04:00
@@ -398,20 +389,21 @@ class _BookingViewState extends State<BookingView> {
   Widget lockedDurationInfo() {
     return Container(
       width: double.infinity,
+      margin: const EdgeInsets.only(top: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
-        color: AppColors.primaryDark.withOpacity(0.90),
-        border: Border(top: BorderSide(color: Colors.white.withOpacity(0.06))),
+        color: Colors.white10,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.white12),
       ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
-          child: CustomButton(
-            text: 'Selanjutnya',
-            onPressed: () {
-              Navigator.pushNamed(context, AppRoutes.bookingDetail);
-            },
-          ),
+      child: Text(
+        isTwoHoursPackage
+            ? 'Paket 2 jam dipilih. Waktu otomatis terkunci: $selectedStartTime - $selectedEndTime'
+            : 'Durasi main: $selectedStartTime - $selectedEndTime',
+        style: const TextStyle(
+          color: AppColors.white,
+          fontSize: 13,
+          height: 1.4,
         ),
       ),
     );
@@ -487,8 +479,16 @@ class _BookingViewState extends State<BookingView> {
   Widget build(BuildContext context) {
     final allTables = [...floor1Tables, ...floor2Tables];
 
-    if (isTwoHoursPackage && selectedTimeIndex == times.length - 1) {
-      selectedTimeIndex = times.length - 2;
+    final lastIndex = times.length - 1; // 04:00
+    final secondLastIndex = times.length - 2; // 03:00
+    final thirdLastIndex = times.length - 3; // 02:00
+
+    if (isTwoHoursPackage &&
+        (selectedTimeIndex == lastIndex ||
+            selectedTimeIndex == secondLastIndex)) {
+      selectedTimeIndex = thirdLastIndex;
+    } else if (!isTwoHoursPackage && selectedTimeIndex == lastIndex) {
+      selectedTimeIndex = secondLastIndex;
     }
 
     return Scaffold(
@@ -650,10 +650,13 @@ class _BookingViewState extends State<BookingView> {
                                         setState(() {
                                           selectedPackageIndex = index;
                                           if (isTwoHoursPackage &&
-                                              selectedTimeIndex ==
-                                                  times.length - 1) {
-                                            selectedTimeIndex =
-                                                times.length - 2;
+                                              (selectedTimeIndex == lastIndex ||
+                                                  selectedTimeIndex ==
+                                                      secondLastIndex)) {
+                                            selectedTimeIndex = thirdLastIndex;
+                                          } else if (!isTwoHoursPackage &&
+                                              selectedTimeIndex == lastIndex) {
+                                            selectedTimeIndex = secondLastIndex;
                                           }
                                         });
                                       },
